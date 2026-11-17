@@ -160,9 +160,9 @@
 
 @utility barbed-wire {
   background-color: var(--wire);
-  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='64'><g stroke='black' stroke-width='1.4' fill='none' stroke-linecap='round'><path d='M10 0 Q14 16 10 32 T10 64'/><path d='M7 29 L13 35 M13 29 L7 35'/></g></svg>") repeat-y center;
-  mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='64'><g stroke='black' stroke-width='1.4' fill='none' stroke-linecap='round'><path d='M10 0 Q14 16 10 32 T10 64'/><path d='M7 29 L13 35 M13 29 L7 35'/></g></svg>") repeat-y center;
-  opacity: .8;
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='64'><g stroke='black' stroke-width='1.5' fill='none' stroke-linecap='round'><path d='M10 0 Q14 16 10 32 T10 64'/><path d='M7 13 L13 19 M13 13 L7 19 M7 45 L13 51 M13 45 L7 51'/></g></svg>") repeat-y center;
+  mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='64'><g stroke='black' stroke-width='1.5' fill='none' stroke-linecap='round'><path d='M10 0 Q14 16 10 32 T10 64'/><path d='M7 13 L13 19 M13 13 L7 19 M7 45 L13 51 M13 45 L7 51'/></g></svg>") repeat-y center;
+  opacity: .85;
 }
 
 @utility cobweb-corner {

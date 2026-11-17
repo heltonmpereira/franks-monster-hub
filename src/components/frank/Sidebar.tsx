@@ -14,13 +14,13 @@ export function FrankSidebar({ collapsed, onToggle }: { collapsed: boolean; onTo
   }, [dark]);
   const path = useRouterState({ select: (r) => r.location.pathname });
   return (
-    <aside className={cn("relative flex shrink-0 transition-[width] duration-300", collapsed ? "w-20" : "w-64")}>
+    <aside className={cn("relative flex shrink-0 bg-sidebar transition-[width] duration-300", collapsed ? "w-20" : "w-64")}>
       <div className="flex h-screen w-full flex-col bg-sidebar text-sidebar-foreground cobweb-corner sticky top-0">
         <div className="flex items-center gap-3 px-5 py-6">
           <BatIcon className="h-8 w-8 shrink-0 text-accent animate-flap" />
           {!collapsed && <span className="font-display text-4xl text-primary text-glow">Frank</span>}
         </div>
-        <nav className="flex-1 space-y-1 pl-3">
+        <nav className="-mr-2.5 flex-1 space-y-1 pl-3">
           {navItems.map((item) => {
             const active = path === item.url;
             return (
@@ -48,7 +48,7 @@ export function FrankSidebar({ collapsed, onToggle }: { collapsed: boolean; onTo
           {collapsed ? <ChevronsRight className="h-4 w-4" /> : <><ChevronsLeft className="h-4 w-4" /> Recolher</>}
         </button>
       </div>
-      <div aria-hidden className="barbed-wire sticky top-0 h-screen w-5 shrink-0" />
+      <div aria-hidden className="barbed-wire sticky top-0 -mr-2.5 h-screen w-5 shrink-0" />
     </aside>
   );
 }
