@@ -10,33 +10,128 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ArquivoRouteImport } from './routes/arquivo'
+import { Route as AssuntosRouteImport } from './routes/assuntos'
+import { Route as ComponentesRouteImport } from './routes/componentes'
+import { Route as ConfiguracoesRouteImport } from './routes/configuracoes'
+import { Route as IntegracoesRouteImport } from './routes/integracoes'
+import { Route as RegistrosRouteImport } from './routes/registros'
+import { Route as UsuariosRouteImport } from './routes/usuarios'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ArquivoRoute = ArquivoRouteImport.update({
+  id: '/arquivo',
+  path: '/arquivo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AssuntosRoute = AssuntosRouteImport.update({
+  id: '/assuntos',
+  path: '/assuntos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ComponentesRoute = ComponentesRouteImport.update({
+  id: '/componentes',
+  path: '/componentes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConfiguracoesRoute = ConfiguracoesRouteImport.update({
+  id: '/configuracoes',
+  path: '/configuracoes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IntegracoesRoute = IntegracoesRouteImport.update({
+  id: '/integracoes',
+  path: '/integracoes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegistrosRoute = RegistrosRouteImport.update({
+  id: '/registros',
+  path: '/registros',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UsuariosRoute = UsuariosRouteImport.update({
+  id: '/usuarios',
+  path: '/usuarios',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/arquivo': typeof ArquivoRoute
+  '/assuntos': typeof AssuntosRoute
+  '/componentes': typeof ComponentesRoute
+  '/configuracoes': typeof ConfiguracoesRoute
+  '/integracoes': typeof IntegracoesRoute
+  '/registros': typeof RegistrosRoute
+  '/usuarios': typeof UsuariosRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/arquivo': typeof ArquivoRoute
+  '/assuntos': typeof AssuntosRoute
+  '/componentes': typeof ComponentesRoute
+  '/configuracoes': typeof ConfiguracoesRoute
+  '/integracoes': typeof IntegracoesRoute
+  '/registros': typeof RegistrosRoute
+  '/usuarios': typeof UsuariosRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/arquivo': typeof ArquivoRoute
+  '/assuntos': typeof AssuntosRoute
+  '/componentes': typeof ComponentesRoute
+  '/configuracoes': typeof ConfiguracoesRoute
+  '/integracoes': typeof IntegracoesRoute
+  '/registros': typeof RegistrosRoute
+  '/usuarios': typeof UsuariosRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/arquivo'
+    | '/assuntos'
+    | '/componentes'
+    | '/configuracoes'
+    | '/integracoes'
+    | '/registros'
+    | '/usuarios'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/arquivo'
+    | '/assuntos'
+    | '/componentes'
+    | '/configuracoes'
+    | '/integracoes'
+    | '/registros'
+    | '/usuarios'
+  id:
+    | '__root__'
+    | '/'
+    | '/arquivo'
+    | '/assuntos'
+    | '/componentes'
+    | '/configuracoes'
+    | '/integracoes'
+    | '/registros'
+    | '/usuarios'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ArquivoRoute: typeof ArquivoRoute
+  AssuntosRoute: typeof AssuntosRoute
+  ComponentesRoute: typeof ComponentesRoute
+  ConfiguracoesRoute: typeof ConfiguracoesRoute
+  IntegracoesRoute: typeof IntegracoesRoute
+  RegistrosRoute: typeof RegistrosRoute
+  UsuariosRoute: typeof UsuariosRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +143,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/arquivo': {
+      id: '/arquivo'
+      path: '/arquivo'
+      fullPath: '/arquivo'
+      preLoaderRoute: typeof ArquivoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/assuntos': {
+      id: '/assuntos'
+      path: '/assuntos'
+      fullPath: '/assuntos'
+      preLoaderRoute: typeof AssuntosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/componentes': {
+      id: '/componentes'
+      path: '/componentes'
+      fullPath: '/componentes'
+      preLoaderRoute: typeof ComponentesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/configuracoes': {
+      id: '/configuracoes'
+      path: '/configuracoes'
+      fullPath: '/configuracoes'
+      preLoaderRoute: typeof ConfiguracoesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/integracoes': {
+      id: '/integracoes'
+      path: '/integracoes'
+      fullPath: '/integracoes'
+      preLoaderRoute: typeof IntegracoesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/registros': {
+      id: '/registros'
+      path: '/registros'
+      fullPath: '/registros'
+      preLoaderRoute: typeof RegistrosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/usuarios': {
+      id: '/usuarios'
+      path: '/usuarios'
+      fullPath: '/usuarios'
+      preLoaderRoute: typeof UsuariosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ArquivoRoute: ArquivoRoute,
+  AssuntosRoute: AssuntosRoute,
+  ComponentesRoute: ComponentesRoute,
+  ConfiguracoesRoute: ConfiguracoesRoute,
+  IntegracoesRoute: IntegracoesRoute,
+  RegistrosRoute: RegistrosRoute,
+  UsuariosRoute: UsuariosRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
