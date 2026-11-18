@@ -1,17 +1,29 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { ChevronsLeft, ChevronsRight, Moon, Sun, X } from "lucide-react";
+import { ChevronsLeft, ChevronsRight, Monitor, Moon, Sun, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { navItems } from "./nav";
 import { BatIcon } from "./icons";
 import { cn } from "@/lib/utils";
 
 export function FrankSidebar({ collapsed, onToggle, open, onClose }: { collapsed: boolean; onToggle: () => void; open: boolean; onClose: () => void }) {
-  const [dark, setDark] = useState(true);
-  useEffect(() => { setDark(localStorage.getItem("frank-theme") !== "light"); }, []);
+  const [mode, setMode] = useState<"auto" | "light" | "dark">("auto");
+  const [ready, setReady] = useState(false);
   useEffect(() => {
-    document.documentElement.classList.toggle("dark", dark);
-    localStorage.setItem("frank-theme", dark ? "dark" : "light");
-  }, [dark]);
+    const saved = localStorage.getItem("frank-theme");
+    if (saved === "light" || saved === "dark" || saved === "auto") setMode(saved);
+    setReady(true);
+  }, []);
+  useEffect(() => {
+    if (!ready) return;
+    localStorage.setItem("frank-theme", mode);
+    const mq = window.matchMedia("(prefers-color-scheme: dark)");
+    const apply = () => document.documentElement.classList.toggle("dark", mode === "dark" || (mode === "auto" && mq.matches));
+    apply();
+    mq.addEventListener("change", apply);
+    return () => mq.removeEventListener("change", apply);
+  }, [mode, ready]);
+  const next = { auto: "light", light: "dark", dark: "auto" } as const;
+  const label = { auto: "Tema automático", light: "Tema claro", dark: "Tema escuro" }[mode];
   const path = useRouterState({ select: (r) => r.location.pathname });
   return (
     <aside className={cn(
@@ -48,10 +60,10 @@ export function FrankSidebar({ collapsed, onToggle, open, onClose }: { collapsed
             );
           })}
         </nav>
-        <button onClick={() => setDark((d) => !d)} aria-label="Alternar tema"
+        <button onClick={() => setMode((m) => next[m])} aria-label={`${label} (clique para alternar)`} title={label}
           className="mx-3 flex items-center justify-center gap-2 rounded-md border border-sidebar-border py-2 text-sm text-muted-foreground hover:text-primary">
-          {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-          {!collapsed && (dark ? "Tema claro" : "Tema escuro")}
+          {mode === "auto" ? <Monitor className="h-4 w-4" /> : mode === "light" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          {!collapsed && label}
         </button>
         <button onClick={onToggle} aria-label="Recolher menu"
           className="m-3 hidden items-center justify-center gap-2 rounded-md border border-sidebar-border py-2 text-sm text-muted-foreground hover:text-primary md:flex">
