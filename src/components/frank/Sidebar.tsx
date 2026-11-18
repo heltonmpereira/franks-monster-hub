@@ -16,7 +16,9 @@ export function FrankSidebar({ collapsed, onToggle, open, onClose }: { collapsed
   return (
     <aside className={cn(
       "fixed inset-y-0 left-0 z-50 flex w-64 shrink-0 bg-sidebar transition-[width,transform] duration-300 md:static md:z-auto md:translate-x-0",
-      open ? "translate-x-0" : "-translate-x-full",
+      // O arame farpado sobressai ~10px para fora da caixa do aside (para atravessar
+      // a fronteira no desktop), então o fechamento empurra 100% da largura + essa sobra.
+      open ? "translate-x-0" : "-translate-x-[calc(100%+0.75rem)]",
       collapsed ? "md:w-20" : "md:w-64",
     )}>
       <div className="flex h-screen w-full flex-col bg-sidebar text-sidebar-foreground cobweb-corner sticky top-0">
