@@ -4,10 +4,12 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
   type ErrorComponentProps,
 } from "@tanstack/react-router";
+import { Menu } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 import { FrankSidebar } from "@/components/frank/Sidebar";
 
@@ -122,16 +124,50 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-  const [collapsed, setCollapsed] = useState(false);
+  const [manualCollapsed, setManualCollapsed] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [vw, setVw] = useState<number | null>(null);
+  const pathname = useRouterState({ select: (r) => r.location.pathname });
+
+  useEffect(() => {
+    const update = () => setVw(window.innerWidth);
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
+  // Fecha o menu ao navegar (mobile)
+  useEffect(() => { setMobileOpen(false); }, [pathname]);
+
+  const isTablet = vw !== null && vw >= 768 && vw < 1024;
+  const collapsed = isTablet ? true : manualCollapsed;
 
   return (
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <div className="flex min-h-screen w-full">
-        <FrankSidebar collapsed={collapsed} onToggle={() => setCollapsed((c) => !c)} />
-        <main className="flex-1 p-8 lg:p-12">
-          <Outlet />
-        </main>
+        {mobileOpen && (
+          <div aria-hidden onClick={() => setMobileOpen(false)}
+            className="fixed inset-0 z-40 bg-background/70 backdrop-blur-sm md:hidden" />
+        )}
+        <FrankSidebar
+          collapsed={collapsed}
+          onToggle={() => setManualCollapsed((c) => !c)}
+          open={mobileOpen}
+          onClose={() => setMobileOpen(false)}
+        />
+        <div className="flex min-w-0 flex-1 flex-col">
+          <header className="sticky top-0 z-30 flex items-center gap-3 border-b border-border bg-background/90 px-4 py-3 backdrop-blur md:hidden">
+            <button onClick={() => setMobileOpen(true)} aria-label="Abrir menu"
+              className="rounded-md border border-border p-2 text-foreground hover:text-primary">
+              <Menu className="h-5 w-5" />
+            </button>
+            <span className="font-display text-2xl text-primary text-glow">Frank</span>
+          </header>
+          <main className="flex-1 p-4 sm:p-6 lg:p-12">
+            <Outlet />
+          </main>
+        </div>
       </div>
     </QueryClientProvider>
   );
