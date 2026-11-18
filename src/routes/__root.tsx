@@ -140,7 +140,10 @@ function RootComponent() {
   useEffect(() => { setMobileOpen(false); }, [pathname]);
 
   const isTablet = vw !== null && vw >= 768 && vw < 1024;
-  const collapsed = isTablet ? true : manualCollapsed;
+  const isMobile = vw !== null && vw < 768;
+  // Ao mudar de faixa de tela, aplica o padrão (tablet recolhido, desktop expandido)
+  useEffect(() => { if (vw !== null) setManualCollapsed(isTablet); }, [isTablet]);
+  const collapsed = isMobile ? false : manualCollapsed;
 
   return (
     <QueryClientProvider client={queryClient}>
