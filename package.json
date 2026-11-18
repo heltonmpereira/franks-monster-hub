@@ -11,9 +11,7 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "test": "vitest run",
-    "test:watch": "vitest",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d .output/public"	
+    "test:watch": "vitest"
   },
   "overrides": {
     "rolldown": "1.2.1"
